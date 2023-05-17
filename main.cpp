@@ -8,16 +8,11 @@
 #include "Headers/Pacman.h"
 #include "Headers/create_map.h"
 #include "Headers/SketchConversion.h"
-
+#include "Headers/DrawPacman.h"
 int main()
 {
     std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> map{};
 
-    unsigned lag = 0;
-
-    unsigned char level = 0;
-
-    //Similar to lag, used to make the game framerate-independent.
     std::chrono::time_point<std::chrono::steady_clock> previous_time;
 
 
@@ -47,12 +42,14 @@ int main()
 
     Pacman pacman;
     SketchConversion sketchConversion;
+    DrawPacman drawPacman;
     srand(static_cast<unsigned>(time(0)));
 
 
     sf::RenderWindow window(sf::VideoMode(MAP_WIDTH*CELL_SIZE*SCREEN_RESIZE,MAP_HEIGHT*CELL_SIZE*SCREEN_RESIZE),"PACMAN",sf::Style::Close);
     window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
     window.setActive(false);
+
     map = sketchConversion.convert_sketch(map_sketch, pacman);
 
     while (window.isOpen())
@@ -66,7 +63,7 @@ int main()
                 window.close();
             }
             window.clear();
-            pacman.draw(window);
+            drawPacman.draw(window,pacman);
             create_map(map,window);
 
 
