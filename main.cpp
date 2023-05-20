@@ -43,6 +43,7 @@ int main()
     Pacman pacman;
     SketchConversion sketchConversion;
     DrawPacman drawPacman;
+    DrawMap drawMap;
     srand(static_cast<unsigned>(time(0)));
 
 
@@ -64,12 +65,10 @@ int main()
             }
             window.clear();
             drawPacman.draw(window,pacman);
-            create_map(map,window);
+            drawMap.create_map(map,window);
 
 
             pacman.update(map);
-
-
 
             window.display();
 
