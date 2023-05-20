@@ -1,4 +1,3 @@
-
 #include <array>
 #include <cmath>
 #include <SFML/Graphics.hpp>
@@ -8,19 +7,10 @@
 #include "Headers/Pacman.h"
 
 Collider colider;
-
 Pacman::Pacman() :
         direction(0),
         position({0, 0})
 {}
-
-void Pacman::draw(sf::RenderWindow& window) {
-    sf::CircleShape circle(CELL_SIZE / 2);
-    circle.setFillColor(sf::Color(255,255,0));
-    circle.setPosition(position.x,position.y);
-    window.draw(circle);
-
-}
 
 void Pacman::setPosition( int i_x, int i_y) {
     position = {i_x,i_y};

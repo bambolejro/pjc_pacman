@@ -1,6 +1,7 @@
 
 #include <array>
 #include <cmath>
+#include <iostream>
 
 #include "Headers/Global.h"
 #include "Headers/Collider.h"
@@ -10,6 +11,8 @@ Collider::Collider()
 
 bool Collider::map_collision(short i_x, short i_y, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map)
 {
+    int a = 0;
+
     bool output = 0;
 
     //Getting the exact position.
@@ -56,6 +59,12 @@ bool Collider::map_collision(short i_x, short i_y, std::array<std::array<Cell, M
                 if (Cell::Wall == i_map[x][y])
                 {
                     output = 1;
+                }
+                else if (Cell::Point == i_map[x][y])
+                {
+                    i_map[x][y] = Cell::Empty;
+                    a+=1;
+                    std::cout<<a<<std::endl;
                 }
     }
     }
