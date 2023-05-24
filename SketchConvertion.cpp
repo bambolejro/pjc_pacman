@@ -13,7 +13,7 @@ SketchConversion::SketchConversion()
 
 
 std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>
-SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT> &i_map_sketch, Pacman &i_pacman)
+SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, std::array<Position, 4>& i_ghost_positions, Pacman &i_pacman)
 {
     std::array<std::array<Cell, MAP_HEIGHT>,MAP_WIDTH> output_map{};
 
@@ -21,6 +21,7 @@ SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT> &i_ma
     {
         for (unsigned char b = 0; b < MAP_WIDTH ; b++)
         {
+            output_map[b][a] = Cell::Empty;
             switch (i_map_sketch[a][b])
             {
                 case ' ':
@@ -41,6 +42,38 @@ SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT> &i_ma
                 case '.':
                 {
                     output_map[b][a] = Cell::Point;
+                    break;
+                }
+                    //Red ghost
+                case '0':
+                {
+                    i_ghost_positions[0].x = CELL_SIZE * b;
+                    i_ghost_positions[0].y = CELL_SIZE * a;
+
+                    break;
+                }
+                    //Pink ghost
+                case '1':
+                {
+                    i_ghost_positions[1].x = CELL_SIZE * b;
+                    i_ghost_positions[1].y = CELL_SIZE * a;
+
+                    break;
+                }
+                    //Blue (cyan) ghost
+                case '2':
+                {
+                    i_ghost_positions[2].x = CELL_SIZE * b;
+                    i_ghost_positions[2].y = CELL_SIZE * a;
+
+                    break;
+                }
+                    //Orange ghost
+                case '3':
+                {
+                    i_ghost_positions[3].x = CELL_SIZE * b;
+                    i_ghost_positions[3].y = CELL_SIZE * a;
+
                     break;
                 }
             }

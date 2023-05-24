@@ -12,5 +12,5 @@ void DrawPacman::draw(sf::RenderWindow& window,Pacman& pacek) {
     circle.setFillColor(sf::Color(255,255,0));
     circle.setPosition(pacek.position.x,pacek.position.y);
     window.draw(circle);
-
 }
+
