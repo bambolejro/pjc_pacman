@@ -1,14 +1,13 @@
-//#pragma once
-//
-//
-//class DrawGhost
-//{
-//public:
-//    DrawGhost();
-//    void draw(sf::RenderWindow& window, Ghost& ghost);
-//    void set_position(short i_x, short i_y);
-//    void draw2(bool i_flash, sf::RenderWindow& i_window);
-//};
-//
-//
-//
+#pragma once
+
+
+class DrawGhost
+{
+    int direction;
+public:
+    DrawGhost();
+    void draw(sf::RenderWindow& i_window,Ghost& ghost);
+};
+
+
+

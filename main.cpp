@@ -17,8 +17,8 @@
 
 int main()
 {
+    unsigned char level = 0;
     std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> map{};
-
     std::chrono::time_point<std::chrono::steady_clock> previous_time;
 
     std::array<Position, 4> ghost_positions;
@@ -47,10 +47,12 @@ int main()
     };
 
     Pacman pacman;
+    Ghost(0);
     GhostManager ghost_manager;
     SketchConversion sketchConversion;
     DrawPacman drawPacman;
     DrawMap drawMap;
+
 //    DrawGhost drawGhost;
     srand(static_cast<unsigned>(time(0)));
 
@@ -60,6 +62,9 @@ int main()
     window.setActive(false);
 
     map = sketchConversion.convert_sketch(map_sketch,ghost_positions, pacman);
+//    std::array<Ghost, 4> ghosty{};
+//
+//    ghosty = ghost_manager.reset(ghost_positions);
     ghost_manager.reset(ghost_positions);
 
     while (window.isOpen())
@@ -76,9 +81,9 @@ int main()
             drawPacman.draw(window,pacman);
 //            ghost_manager.draw(GHOST_FLASH_START >= 0, window);
             drawMap.create_map(map,window);
-            ghost_manager.draw(window);
+            ghost_manager.select_ghost_to_draw(window);
+            ghost_manager.update(level,map,pacman);
             pacman.update(map);
-//            ghost_manager.reset(0, ghost_positions);
             window.display();
 
         }

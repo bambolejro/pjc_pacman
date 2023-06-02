@@ -23,7 +23,7 @@ constexpr unsigned char GHOST_ESCAPE_SPEED = 4;
 //So the higher the value, the slower the ghost.
 constexpr unsigned char GHOST_FRIGHTENED_SPEED = 3;
 //I won't explain the rest. Bite me!
-constexpr unsigned char Ghost_SPEED = 1;
+constexpr unsigned char GHOST_SPEED = 1;
 constexpr unsigned char MAP_HEIGHT = 21;
 constexpr unsigned char MAP_WIDTH = 21;
 constexpr unsigned char PACMAN_ANIMATION_FRAMES = 6;
