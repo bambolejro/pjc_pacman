@@ -35,7 +35,7 @@ void DrawGhost::draw(sf::RenderWindow& i_window,Ghost& ghost)
         }
         case 2:
         {
-            //Cyan color (I still don't understand why they called it blue)
+            //Cyan color
             ghostek.setFillColor(sf::Color(0,255,0));
 
             break;

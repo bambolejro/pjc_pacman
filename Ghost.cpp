@@ -12,11 +12,7 @@ Collider collider;
 Ghost::Ghost(unsigned char i_id) :
         id(i_id),
         direction(0)
-{
-    //I keep writing "gohst" instead of "gohst" (THERE! I did it again!).
-    //So in this file I'll write only "gohst".
-    //Enjoy!
-}
+{}
 
 void Ghost::set_position(short i_x, short i_y)
 {
@@ -26,14 +22,10 @@ void Ghost::set_position(short i_x, short i_y)
 void Ghost::reset(const Position& i_home, const Position& i_home_exit)
 {
     movement_mode = 0;
-    //Everyone can use the door except the red gohst.
-    //Because I hate the red gohst.
     use_door = 0 < id;
-
     direction = 0;
     frightened_mode = 0;
     frightened_speed_timer = 0;
-
     animation_timer = 0;
 
     home = i_home;
@@ -83,17 +75,14 @@ float Ghost::get_target_distance(unsigned char i_direction)
 
 void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map, Ghost& i_ghost_0, Pacman& i_pacman)
 {
-    //Can the gohst move?
     bool move = 0;
 
-    //If this is greater than 1, that means that the gohst has reached the intersection.
-    //We don't consider the way back as an available way.
+
     unsigned char available_ways = 0;
     unsigned char speed = GHOST_SPEED;
 
     std::array<bool, 4> walls{};
 
-    //Here the gohst starts and stops being frightened.
     if (0 == frightened_mode && i_pacman.get_energizer_timer() == ENERGIZER_DURATION / pow(2, i_level))
     {
         frightened_speed_timer = GHOST_FRIGHTENED_SPEED;
@@ -105,7 +94,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
         frightened_mode = 0;
     }
 
-    //I used the modulo operator in case the gohst goes outside the grid.
     if (2 == frightened_mode && 0 == position.x % GHOST_ESCAPE_SPEED && 0 == position.y % GHOST_ESCAPE_SPEED)
     {
         speed = GHOST_ESCAPE_SPEED;
@@ -113,7 +101,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 
     update_target(i_pacman.get_direction(), i_ghost_0.get_position(), i_pacman.get_position());
 
-    //This is so clean! I could spend hours staring at it.
     walls[0] = collider.map_collision(0, use_door, speed + position.x, position.y, i_map);
     walls[1] = collider.map_collision(0, use_door, position.x, position.y - speed, i_map);
     walls[2] = collider.map_collision(0, use_door, position.x - speed, position.y, i_map);
@@ -121,15 +108,12 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 
     if (1 != frightened_mode)
     {
-        //I used 4 because using a number between 0 and 3 will make the gohst move in a direction it can't move.
         unsigned char optimal_direction = 4;
 
-        //The gohst can move.
         move = 1;
 
         for (unsigned char a = 0; a < 4; a++)
         {
-            //Gohsts can't turn back! (Unless they really have to)
             if (a == (2 + direction) % 4)
             {
                 continue;
@@ -145,7 +129,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 
                 if (get_target_distance(a) < get_target_distance(optimal_direction))
                 {
-                    //The optimal direction is the direction that's closest to the target.
                     optimal_direction = a;
                 }
             }
@@ -153,7 +136,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 
         if (1 < available_ways)
         {
-            //When the gohst is at the intersection, it chooses the optimal direction.
             direction = optimal_direction;
         }
         else
@@ -171,19 +153,15 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
     }
     else
     {
-        //I used rand() because I figured that we're only using randomness here, and there's no need to use a whole library for it.
         unsigned char random_direction = rand() % 4;
 
         if (0 == frightened_speed_timer)
         {
-            //The gohst can move after a certain number of frames.
             move = 1;
-
             frightened_speed_timer = GHOST_FRIGHTENED_SPEED;
 
             for (unsigned char a = 0; a < 4; a++)
             {
-                //They can't turn back even if they're frightened.
                 if (a == (2 + direction) % 4)
                 {
                     continue;
@@ -198,7 +176,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
             {
                 while (1 == walls[random_direction] || random_direction == (2 + direction) % 4)
                 {
-                    //We keep picking a random direction until we can use it.
                     random_direction = rand() % 4;
                 }
 
@@ -206,7 +183,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
             }
             else
             {
-                //If there's no other way, it turns back.
                 direction = (2 + direction) % 4;
             }
         }
@@ -216,7 +192,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
         }
     }
 
-    //If the gohst can move, we move it.
     if (1 == move)
     {
         switch (direction)
@@ -245,8 +220,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
             }
         }
 
-        //Warping.
-        //When the gohst leaves the map, we move it to the other side.
         if (-CELL_SIZE >= position.x)
         {
             position.x = CELL_SIZE * MAP_WIDTH - speed;
@@ -259,11 +232,11 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 
     if (1 == pacman_collision(i_pacman.get_position()))
     {
-        if (0 == frightened_mode) //When the gohst is not frightened and collides with Pacman, we kill Pacman.
+        if (0 == frightened_mode)
         {
             i_pacman.set_dead(1);
         }
-        else //Otherwise, the gohst starts running towards the house.
+        else
         {
             use_door = 1;
 
@@ -275,8 +248,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
 }
 bool Ghost::pacman_collision(const Position& i_pacman_position)
 {
-    //I used the ADVANCED collision checking algorithm.
-    //Only experts like me can understand this.
     if (position.x > i_pacman_position.x - CELL_SIZE && position.x < CELL_SIZE + i_pacman_position.x)
     {
         if (position.y > i_pacman_position.y - CELL_SIZE && position.y < CELL_SIZE + i_pacman_position.y)
@@ -290,27 +261,27 @@ bool Ghost::pacman_collision(const Position& i_pacman_position)
 
 void Ghost::update_target(unsigned char i_pacman_direction, const Position& i_ghost_0_position, const Position& i_pacman_position)
 {
-    if (1 == use_door) //If the gohst can use the door.
+    if (1 == use_door)
     {
         if (position == target)
         {
-            if (home_exit == target) //If the gohst has reached the exit.
+            if (home_exit == target)
             {
-                use_door = 0; //It can no longer use the door.
+                use_door = 0;
             }
-            else if (home == target) //If the gohst has reached its home.
+            else if (home == target)
             {
-                frightened_mode = 0; //It stops being frightened.
+                frightened_mode = 0;
 
-                target = home_exit; //And starts leaving the house.
+                target = home_exit;
             }
         }
     }
     else
     {
-        if (0 == movement_mode) //The scatter mode
+        if (0 == movement_mode)
         {
-            //Each gohst goes to the corner it's assigned to.
+            //Each gohst goes to the corner
             switch (id)
             {
                 case 0:
@@ -341,7 +312,7 @@ void Ghost::update_target(unsigned char i_pacman_direction, const Position& i_gh
         {
             switch (id)
             {
-                case 0: //The red gohst will chase Pacman.
+                case 0: //Red ghost go for pacman
                 {
                     target = i_pacman_position;
 

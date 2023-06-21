@@ -20,6 +20,22 @@ void Pacman::setPosition( int i_x, int i_y) {
     position = {i_x,i_y};
 
 }
+bool Pacman::get_animation_over()
+{
+    return animation_over;
+}
+
+
+void Pacman::reset()
+{
+    animation_over = 0;
+    dead = 0;
+
+    direction = 0;
+
+    animation_timer = 0;
+    energizer_timer = 0;
+}
 
 unsigned short Pacman::get_energizer_timer()
 {
@@ -42,7 +58,7 @@ void Pacman::set_dead(bool i_dead)
     }
 }
 
-void Pacman::update(std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map) {
+void Pacman::update(unsigned char i_level,std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map) {
 
     std::array<bool, 4> walls{};
     walls[0] = colider.map_collision(0,0,PACMAN_SPEED + position.x, position.y,i_map);
@@ -122,7 +138,7 @@ void Pacman::update(std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map) 
     if (1 == colider.map_collision(1, 0, position.x, position.y, i_map)) //When Pacman eats an energizer...
     {
         //He becomes energized!
-        energizer_timer = static_cast<unsigned short>(ENERGIZER_DURATION / pow(2, 1));
+        energizer_timer = static_cast<unsigned short>(ENERGIZER_DURATION / pow(2, i_level));
     }
     else
     {
@@ -130,10 +146,16 @@ void Pacman::update(std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map) 
     }
 }
 
+bool Pacman::get_dead()
+{
+    return dead;
+}
+
 Position Pacman::get_position()
 {
     return position;
 }
+
 
 
 

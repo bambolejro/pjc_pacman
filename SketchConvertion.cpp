@@ -44,6 +44,10 @@ SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT>& i_ma
                     output_map[b][a] = Cell::Point;
                     break;
                 }
+                case 'o':
+                {
+                    output_map[b][a] = Cell::Energizer;
+                }
                     //Red ghost
                 case '0':
                 {

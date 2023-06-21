@@ -4,13 +4,15 @@
 #include <iostream>
 
 #include "Headers/Global.h"
-#include "Headers/Collider.h"
+#include "Headers/GhostCollider.h"
 
-Collider::Collider()
+GhostCollider::GhostCollider()
 {}
 
-bool Collider::map_collision(bool collect_pts,bool i_use_door,short i_x, short i_y, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map)
+bool GhostCollider::map_collision(short i_x, short i_y, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map)
 {
+    int a = 0;
+
     bool output = 0;
 
     //Getting the exact position.
@@ -52,48 +54,21 @@ bool Collider::map_collision(bool collect_pts,bool i_use_door,short i_x, short i
                 y = static_cast<short>(ceil(cell_y));
             }
         }
-
-        //Making sure that the position is inside the map.
         if (0 <= x && 0 <= y && MAP_HEIGHT > y && MAP_WIDTH > x)
         {
-            if (0 == collect_pts) //Here we only care about the walls.
+            if (Cell::Wall == i_map[x][y])
             {
-                if (Cell::Wall == i_map[x][y])
-                {
-                    output = 1;
-                }
-                else if (0 == i_use_door && Cell::Door == i_map[x][y])
-                {
-                    output = 1;
-                }
+                output = 1;
             }
-            else //Here we only care about the collectables.
+            else if (Cell::Point == i_map[x][y])
             {
-                if (Cell::Energizer == i_map[x][y])
-                {
-                    output = 1;
-
-                    i_map[x][y] = Cell::Empty;
-                }
-                else if (Cell::Point == i_map[x][y])
-                {
-                    i_map[x][y] = Cell::Empty;
-                }
+                i_map[x][y] = Cell::Empty;
+                a+=1;
+                std::cout<<a<<std::endl;
             }
         }
     }
-
     return output;
+
 }
 
-//bool Collider::pointer(short x, short y, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map,bool output2)
-//{
-//    if (Cell::Wall == i_map[x][y])
-//    {
-//        output2 = 1;
-//    }
-//    else if (Cell::Point == i_map[x][y])
-//    {
-//        i_map[x][y] = Cell::Empty;
-//    }
-//}

@@ -15,7 +15,7 @@ class Ghost
     Position home_exit;
     Position target;
 public:
-    unsigned char id;
+    unsigned char id;//private
     Ghost(unsigned char i_id);
     void set_position(short i_x, short i_y);
     void update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map, Ghost& i_ghost_0, Pacman& i_pacman);

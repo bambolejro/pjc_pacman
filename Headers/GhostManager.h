@@ -2,8 +2,10 @@
 
 class GhostManager
 {
+    unsigned char current_wave;
+    unsigned short wave_timer;
     std::array<Ghost, 4> ghosts;
-    DrawGhost drawGhost;
+    DrawGhost *drawGhost;// zamien na szort pointera albo unit pointera
     Pacman pacman;
 public:
     GhostManager();
