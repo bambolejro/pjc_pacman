@@ -1,6 +1,5 @@
 #include <array>
 #include <string>
-#include <SFML/Graphics.hpp>
 
 #include "Headers/Global.h"
 #include "Headers/Pacman.h"
@@ -13,7 +12,7 @@ SketchConversion::SketchConversion()
 
 
 std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>
-SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, std::array<Position, 4>& i_ghost_positions, Pacman &i_pacman)
+SketchConversion::convert_sketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, std::array<Position, 4>& i_ghost_positions, PacmanTmp &i_pacman)
 {
     std::array<std::array<Cell, MAP_HEIGHT>,MAP_WIDTH> output_map{};
 

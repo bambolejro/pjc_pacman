@@ -1,15 +1,13 @@
 #include <SFML/Graphics.hpp>
 
 #include "Headers/Global.h"
-#include "Headers/Pacman.h"
-#include "Headers/Ghost.h"
+#include "Headers/GhostTmp.h"
 #include "Headers/DrawGhost.h"
 
 
 DrawGhost::DrawGhost() :
 direction(0)
 {}
-
 
 void DrawGhost::draw(sf::RenderWindow& i_window,Ghost& ghost)
 {

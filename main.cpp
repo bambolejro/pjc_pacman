@@ -6,14 +6,19 @@
 
 #include "Headers/Global.h"
 #include "Headers/Pacman.h"
-#include "Headers/Ghost.h"
+#include "Headers/GhostTmp.h"
 
 #include "Headers/DrawMap.h"
 #include "Headers/SketchConversion.h"
-#include "Headers/DrawPacman.h"
 #include "Headers/DrawGhost.h"
 #include "Headers/DrawPointsState.h"
 #include "Headers/GhostManager.h"
+#include "Headers/PacmanTmp.h"
+#include "Headers/DrawMovingObject.h"
+#include "Headers/DrawPacmanTmp.h"
+
+#include "Headers/MovingObject.h"
+
 
 
 int main() {
@@ -48,11 +53,14 @@ int main() {
             " ################### "
     };
 
-    Pacman pacman;
+//    MovingObject* pacman = new PacmanTmp();
+    PacmanTmp pacman;
 //    Ghost(0);
     GhostManager ghost_manager;
     SketchConversion sketchConversion;
-    DrawPacman drawPacman;
+    DrawMovingObject* drawPacman = new DrawPacmanTmp();
+//    DrawPacmanTmp drawPacman;
+    // DrawMovingObject* drawPacman = new DrawPacman;
     DrawMap drawMap;
     DrawPointsState drawPointsState;
 
@@ -106,9 +114,9 @@ int main() {
                 for (const std::array<Cell, MAP_HEIGHT> &column: map)
                 {
                     for (const Cell &cell: column) {
-                        if (Cell::Point == cell) //And if at least one of them has a pellet.
+                        if (Cell::Point == cell) //jeśli został chociaż jeden punkcik do zebrania
                         {
-                            game_won = 0; //The game is not yet won.
+                            game_won = 0; //gra nie jest jeszcze wygrana
 
                             break;
                         }
@@ -130,7 +138,7 @@ int main() {
                 }
                 else
                 {
-                    //After each win we reduce the duration of attack waves and energizers.
+                    //Po każdej wygranej zmniejsza sie czas fal ataku i energizerów
                     level++;
                 }
 
@@ -155,7 +163,7 @@ int main() {
                                               window);
                 }
 
-                drawPacman.draw(window,pacman);
+                drawPacman->draw(window, &pacman);
 
                 if (1 == pacman.get_animation_over())
                 {

@@ -2,14 +2,13 @@
 
 #include "Headers/Global.h"
 #include "Headers/Pacman.h"
-#include "Headers/DrawPacman.h"
+#include "Headers/DrawPacmanTmp.h"
 
 
-DrawPacman::DrawPacman()
-{}
-void DrawPacman::draw(sf::RenderWindow& window,PacmanTmp& pacek) {
+
+void DrawPacmanTmp::draw(sf::RenderWindow& window,MovingObject* object) {
     sf::CircleShape circle(CELL_SIZE / 2);
     circle.setFillColor(sf::Color(255,255,0));
-    circle.setPosition(pacek.position.x,pacek.position.y);
+    circle.setPosition(object->position.x,object->position.y);
     window.draw(circle);
-}
+};

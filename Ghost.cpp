@@ -4,20 +4,18 @@
 
 #include "Headers/Global.h"
 #include "Headers/Pacman.h"
-#include "Headers/Ghost.h"
+#include "Headers/GhostTmp.h"
 #include "Headers/Collider.h"
 
 Collider collider;
 
 Ghost::Ghost(unsigned char i_id) :
+        MovingObject(),
         id(i_id),
         direction(0)
 {}
 
-void Ghost::set_position(short i_x, short i_y)
-{
-    position = {i_x, i_y};
-}
+
 
 void Ghost::reset(const Position& i_home, const Position& i_home_exit)
 {
@@ -73,7 +71,7 @@ float Ghost::get_target_distance(unsigned char i_direction)
 }
 
 
-void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map, Ghost& i_ghost_0, Pacman& i_pacman)
+void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map, Ghost& i_ghost_0, PacmanTmp& i_pacman)
 {
     bool move = 0;
 
@@ -408,4 +406,13 @@ void Ghost::update_target(unsigned char i_pacman_direction, const Position& i_gh
 void Ghost::switch_mode()
 {
     movement_mode = 1 - movement_mode;
+}
+
+int Ghost::getId()
+{
+    return id;
+}
+
+void Ghost::setId(int newId) {
+    id = newId;
 }

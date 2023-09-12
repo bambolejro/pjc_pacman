@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include "Headers/Global.h"
-#include "Headers/Pacman.h"
-#include "Headers/Ghost.h"
+//#include "Headers/Pacman.h"
+#include "Headers/GhostTmp.h"
 #include "Headers/DrawGhost.h"
 #include "Headers/GhostManager.h"
 
@@ -13,7 +13,7 @@
 GhostManager::GhostManager() :
         current_wave(0),
         wave_timer(LONG_SCATTER_DURATION),
-        ghosts({Ghost(0), Ghost(1), Ghost(2), Ghost(3)})
+        ghosts({ Ghost(0),  Ghost(1),  Ghost(2),  Ghost(3)})
 {
 
 }
@@ -31,7 +31,7 @@ void GhostManager::reset(const std::array<Position, 4>& i_ghost_positions)
 
     for (unsigned char a = 0; a < 4; a++)
     {
-        ghosts[a].set_position(i_ghost_positions[a].x, i_ghost_positions[a].y);
+        ghosts[a].setPosition(i_ghost_positions[a].x, i_ghost_positions[a].y);
         std::cout<<i_ghost_positions[a].y<<std::endl;
     }
 
@@ -42,7 +42,7 @@ void GhostManager::reset(const std::array<Position, 4>& i_ghost_positions)
     }
 }
 
-void GhostManager::update(unsigned char i_level,std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map,Pacman& i_pacman )
+void GhostManager::update(unsigned char i_level,std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH>& i_map,PacmanTmp& i_pacman )
 {
     if (0 == i_pacman.get_energizer_timer())
     {
