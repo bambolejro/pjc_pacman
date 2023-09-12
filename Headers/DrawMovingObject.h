@@ -3,6 +3,7 @@
 
 class DrawMovingObject {
 public:
-    DrawMovingObject();
+    DrawMovingObject()=default;
+    ~DrawMovingObject()=default;
     virtual void draw(sf::RenderWindow& i_window,MovingObject* object);
 };

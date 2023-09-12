@@ -1,0 +1,3 @@
+C:/Users/niedz/CLionProjects/PJC_pacman/cmake-build-debug/CMakeFiles/PJC_pacman.dir
+C:/Users/niedz/CLionProjects/PJC_pacman/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/niedz/CLionProjects/PJC_pacman/cmake-build-debug/CMakeFiles/rebuild_cache.dir
