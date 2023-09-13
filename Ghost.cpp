@@ -140,7 +140,6 @@ void Ghost::update(unsigned char i_level, std::array<std::array<Cell, MAP_HEIGHT
         {
             if (4 == optimal_direction)
             {
-                //"Unless they have to" part.
                 direction = (2 + direction) % 4;
             }
             else

@@ -5,7 +5,7 @@
 class DrawPacmanTmp: public DrawMovingObject
 {
 public:
-    DrawPacmanTmp();
+    DrawPacmanTmp()=default;
     void draw(sf::RenderWindow& i_window,MovingObject* object) override;
 };
 

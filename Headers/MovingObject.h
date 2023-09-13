@@ -7,7 +7,9 @@ protected:
     unsigned char direction;
     unsigned short animation_timer;
 
+
 public:
+    unsigned char id;
     Position position;
     MovingObject()=default;
     ~MovingObject()=default;

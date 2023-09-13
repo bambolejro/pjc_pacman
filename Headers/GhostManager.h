@@ -5,7 +5,7 @@ class GhostManager
     unsigned char current_wave;
     unsigned short wave_timer;
     std::array<Ghost, 4> ghosts;
-    DrawGhost *drawGhost;// zamien na szort pointera albo unit pointera
+    DrawMovingObject* drawGhost = new DrawGhostTmp();
     PacmanTmp pacman;
 public:
     GhostManager();

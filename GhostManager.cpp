@@ -6,7 +6,7 @@
 #include "Headers/Global.h"
 //#include "Headers/Pacman.h"
 #include "Headers/GhostTmp.h"
-#include "Headers/DrawGhost.h"
+#include "Headers/DrawGhostTmp.h"
 #include "Headers/GhostManager.h"
 
 
@@ -22,7 +22,7 @@ void GhostManager::select_ghost_to_draw(sf::RenderWindow& i_window)
 {
     for (Ghost& ghost : ghosts)
     {
-        this->drawGhost->draw(i_window,ghost);
+        this->drawGhost->draw(i_window,&ghost);
     }
 }
 
